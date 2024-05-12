@@ -8,6 +8,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "api",
+      "rootUri": "../../api",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "archive",
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/archive-3.5.1",
       "packageUri": "lib/",
@@ -24,6 +30,12 @@
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "bloc",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/bloc-8.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "boolean_selector",
@@ -50,6 +62,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "convert",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/convert-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "crypto",
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/crypto-3.0.3",
       "packageUri": "lib/",
@@ -62,10 +80,34 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "cupertino_icons",
-      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.8",
+      "name": "dio",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/dio-5.4.3+1",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "dio_cache_interceptor",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/dio_cache_interceptor-3.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "dio_cache_interceptor_db_store",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/dio_cache_interceptor_db_store-5.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "drift",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/drift-2.18.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "equatable",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/equatable-2.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "fake_async",
@@ -74,10 +116,28 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "ffi",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/ffi-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "fixnum",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/fixnum-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/brunobarros/Documents/SDKs/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "flutter_bloc",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/flutter_bloc-8.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_native_splash",
@@ -98,16 +158,52 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "freezed_annotation",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "get_it",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/get_it-7.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "html",
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/html-0.15.4",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
+      "name": "http_parser",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "image",
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/image-4.1.7",
       "packageUri": "lib/",
       "languageVersion": "2.15"
+    },
+    {
+      "name": "injectable",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/injectable-2.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/js-0.7.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/json_annotation-4.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "leak_tracker",
@@ -170,6 +266,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "retrofit",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/retrofit-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/brunobarros/Documents/SDKs/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -180,6 +282,18 @@
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/source_span-1.10.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "sprintf",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/sprintf-7.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "sqlite3",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/sqlite3-2.4.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "stack_trace",
@@ -224,6 +338,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "uuid",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/uuid-4.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -234,6 +354,12 @@
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/vm_service-13.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "web",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/web-0.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "xml",
@@ -254,7 +380,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-11T04:29:17.910785Z",
+  "generated": "2024-05-12T01:03:20.155754Z",
   "generator": "pub",
   "generatorVersion": "3.3.4"
 }

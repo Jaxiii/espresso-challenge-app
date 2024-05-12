@@ -1,10 +1,10 @@
-import 'package:espresso_challange/app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'app.dart';
 //import 'package:espresso_challange/ui/splash_screen.dart';
-import '../ui/splash_screen.dart';
+import 'ui/screens/splash_screen.dart';
 
 void main() async {
   runApp(const SplashScreen());
