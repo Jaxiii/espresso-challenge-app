@@ -6,3 +6,7 @@ abstract class CryptoEvent extends Equatable {
 }
 
 class FetchCryptoData extends CryptoEvent {}
+
+class FetchCoinList extends CryptoEvent {}
+
+class LoadMoreCoins extends CryptoEvent {}

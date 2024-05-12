@@ -1,7 +1,9 @@
 import 'package:api/api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import 'features/coins_list_data/coin_list_data_bloc.dart';
 import 'repository/coin_list_data_repository/coin_list_data_repository.dart';
 import 'services/api_wrapper.dart';
 import 'ui/screens/home_screen.dart';
@@ -27,7 +29,10 @@ class App extends StatelessWidget {
           child: MaterialApp(
             title: 'Espresso Cash - Code Challenge',
             theme: context.watch<CpThemeData>().toMaterialTheme(),
-            home: const HomeScreen(title: 'Espresso Cash - Code Challenge'),
+            home: BlocProvider<CryptoBloc>(
+              create: (context) => CryptoBloc(context.read<CryptoRepository>()),
+              child: HomeScreen(title: 'Espresso Cash - Code Challenge'),
+            ),
           ),
         ),
       ),
