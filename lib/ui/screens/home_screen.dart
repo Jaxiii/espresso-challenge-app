@@ -4,11 +4,12 @@ import 'package:api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../features/coins_list_data/coin_list_data_bloc.dart';
-import '../../features/coins_list_data/coin_list_data_event.dart';
-import '../../features/coins_list_data/coin_list_data_state.dart';
-import '../../features/coins_list_data/coin_list_data_view.dart';
+import '../../features/coins_list/coin_list_bloc.dart';
+import '../../features/coins_list/coin_list_event.dart';
+import '../../features/coins_list/coin_list_state.dart';
+import '../../features/coins_list/coin_list_view.dart';
 import '../theme.dart';
+import 'details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -23,13 +24,14 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
   List<CoinMapDto> _searchResults = [];
-  StreamSubscription<CryptoState>? _cryptoSubscription;
+  StreamSubscription<CoinListState>? _cryptoSubscription;
 
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<CryptoBloc>(context, listen: false).add(FetchCryptoData());
-    _cryptoSubscription = BlocProvider.of<CryptoBloc>(context, listen: false)
+    BlocProvider.of<CoinListBloc>(context, listen: false)
+        .add(FetchCoinListWithMarket());
+    _cryptoSubscription = BlocProvider.of<CoinListBloc>(context, listen: false)
         .stream
         .listen((state) {
       if (state is CoinListLoaded) {
@@ -62,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: _isSearching && _searchResults.isNotEmpty
           ? _buildSearchResults()
-          : CryptoScreen(),
+          : CoinListWidget(),
     );
   }
 
@@ -82,8 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _performSearch(String query) {
     if (query.isEmpty) {
-      BlocProvider.of<CryptoBloc>(context, listen: false).add(
-        FetchCryptoData(),
+      BlocProvider.of<CoinListBloc>(context, listen: false).add(
+        FetchCoinListWithMarket(),
       );
       setState(() {
         _searchResults.clear();
@@ -91,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-    final cryptoBloc = BlocProvider.of<CryptoBloc>(context, listen: false);
+    final cryptoBloc = BlocProvider.of<CoinListBloc>(context, listen: false);
     cryptoBloc.add(FetchCoinList());
     _cryptoSubscription?.cancel();
     _cryptoSubscription = cryptoBloc.stream.listen((state) {
@@ -110,7 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return ListView.builder(
       itemCount: _searchResults.length,
       itemBuilder: (context, index) {
-        return ListTile(title: Text(_searchResults[index].name));
+        return ListTile(
+          title: Text(_searchResults[index].name),
+          onTap: () =>
+              DetailsScreen.push(context, title: _searchResults[index].name),
+        );
       },
     );
   }
@@ -121,8 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.clear),
               onPressed: () {
-                BlocProvider.of<CryptoBloc>(context, listen: false)
-                    .add(FetchCryptoData());
+                BlocProvider.of<CoinListBloc>(context, listen: false).add(
+                  FetchCoinListWithMarket(),
+                );
                 _searchController.clear();
                 setState(() {
                   _isSearching = false;
