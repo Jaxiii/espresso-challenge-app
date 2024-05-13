@@ -9,3 +9,13 @@ class FetchCoinData extends CryptoDataEvent {
   final String id;
   FetchCoinData({required this.id});
 }
+
+class FetchCoinHistoricalPrice extends CryptoDataEvent {
+  final String id;
+  FetchCoinHistoricalPrice({required this.id});
+}
+
+class FetchCoinPrice extends CryptoDataEvent {
+  final String id;
+  FetchCoinPrice({required this.id});
+}

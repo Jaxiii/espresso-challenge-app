@@ -22,6 +22,16 @@ class CoinDataLoaded extends CoinDataState {
   CoinDataLoaded(this.coinData);
 }
 
+class CoinChartLoaded extends CoinDataState {
+  final HistoricalPricesMapDto coinChart;
+  CoinChartLoaded(this.coinChart);
+}
+
+class CoinPriceLoaded extends CoinDataState {
+  final Map<String, PriceMapDto> coinPrice;
+  CoinPriceLoaded(this.coinPrice);
+}
+
 class CoinDataError extends CoinDataState {
   final String message;
   final EspressoCashError? error;

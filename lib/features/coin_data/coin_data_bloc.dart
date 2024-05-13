@@ -12,9 +12,38 @@ class CoinDataBloc extends Bloc<CryptoDataEvent, CoinDataState> {
     on<FetchCoinData>((event, emit) async {
       emit(CoinDataLoading());
       try {
-        var data =
-            await cryptoRepository.fetchCryptoData('<API-KEY>', event.id);
+        CoinDataMapDto data = await cryptoRepository.fetchCryptoData(event.id);
         emit(CoinDataLoaded(data));
+      } catch (e) {
+        if (e is EspressoCashException) {
+          emit(CoinDataError("Failed to fetch data", e.error));
+        } else {
+          emit(CoinDataError(e.toString(), null));
+        }
+      }
+    });
+
+    on<FetchCoinHistoricalPrice>((event, emit) async {
+      emit(CoinDataLoading());
+      try {
+        HistoricalPricesMapDto data =
+            await cryptoRepository.fetchCoinHistoricalPrices(event.id);
+        emit(CoinChartLoaded(data));
+      } catch (e) {
+        if (e is EspressoCashException) {
+          emit(CoinDataError("Failed to fetch data", e.error));
+        } else {
+          emit(CoinDataError(e.toString(), null));
+        }
+      }
+    });
+
+    on<FetchCoinPrice>((event, emit) async {
+      emit(CoinDataLoading());
+      try {
+        Map<String, PriceMapDto> data =
+            await cryptoRepository.fetchCoinPrice(event.id);
+        emit(CoinPriceLoaded(data));
       } catch (e) {
         if (e is EspressoCashException) {
           emit(CoinDataError("Failed to fetch data", e.error));

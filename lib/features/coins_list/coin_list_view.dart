@@ -55,7 +55,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
               var coin = state.cryptoData[index];
               return ListTile(
                 title: Text(coin.name),
-                onTap: () => DetailsScreen.push(context, title: coin.name),
+                onTap: () => DetailsScreen.push(context, id: coin.id),
               );
             },
           );

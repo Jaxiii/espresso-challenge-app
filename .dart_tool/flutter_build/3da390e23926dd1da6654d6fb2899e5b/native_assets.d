@@ -1,0 +1,1 @@
+ /Users/brunobarros/Documents/espresso_challange/app/.dart_tool/flutter_build/3da390e23926dd1da6654d6fb2899e5b/native_assets.yaml: 

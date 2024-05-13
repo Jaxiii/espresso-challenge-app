@@ -7,6 +7,9 @@ import 'app.dart';
 import 'ui/screens/splash_screen.dart';
 
 void main() async {
+  if (!const bool.hasEnvironment('API_KEY')) {
+    print('API_KEY not found');
+  }
   runApp(const SplashScreen());
 
   if (!kIsWeb) {
