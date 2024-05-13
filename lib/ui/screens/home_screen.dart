@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return ListTile(
           title: Text(_searchResults[index].name),
           onTap: () =>
-              DetailsScreen.push(context, title: _searchResults[index].name),
+              DetailsScreen.push(context, id: _searchResults[index].id),
         );
       },
     );

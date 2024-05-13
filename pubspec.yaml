@@ -15,6 +15,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   equatable: ^2.0.5
   fl_chart: ^0.68.0
+  sqlite3_flutter_libs: ^0.5.21
   api:
     path: ../api
     # git:
@@ -25,12 +26,21 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_native_splash: ^2.4.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^3.0.0
 
 flutter_native_splash:
   color: "#B4A270"
   image: assets/images/logo.png
   web: false
-  flutter_lints: ^3.0.0
+
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21 
 
 flutter:
 

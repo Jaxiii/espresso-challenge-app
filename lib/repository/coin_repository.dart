@@ -16,28 +16,43 @@ class CoinRepository {
     }
   }
 
-  Future<List<CoinMarketMapDto>> fetchCoinsListWithMatket(
-      String apiKey, int page) async {
+  Future<List<CoinMarketMapDto>> fetchCoinsListWithMatket(int page) async {
     try {
-      return await apiWrapper.fetchCoinsListWithMatket(apiKey, page);
+      return await apiWrapper.fetchCoinsListWithMatket(page);
     } catch (e) {
       return throwError(e, 'Failed to fetch cryptocurrency list with market');
     }
   }
 
-  Future<List<CoinMapDto>> fetchCoinList(String apiKey) async {
+  Future<List<CoinMapDto>> fetchCoinList() async {
     try {
-      return await apiWrapper.fetchCoinsList(apiKey);
+      return await apiWrapper.fetchCoinsList();
     } catch (e) {
       return throwError(e, 'Failed to fetch cryptocurrency list');
     }
   }
 
-  Future<CoinDataMapDto> fetchCryptoData(String apiKey, String id) async {
+  Future<CoinDataMapDto> fetchCryptoData(String id) async {
     try {
-      return await apiWrapper.fetchCoinData(apiKey, id);
+      return await apiWrapper.fetchCoinData(id);
     } catch (e) {
       return throwError(e, 'Failed to fetch cryptocurrency data');
+    }
+  }
+
+  Future<HistoricalPricesMapDto> fetchCoinHistoricalPrices(String id) async {
+    try {
+      return await apiWrapper.fetchCoinHistoricalPrices(id);
+    } catch (e) {
+      return throwError(e, 'Failed to fetch cryptocurrency historical prices');
+    }
+  }
+
+  Future<Map<String, PriceMapDto>> fetchCoinPrice(String id) async {
+    try {
+      return await apiWrapper.fetchCoinPrice(id);
+    } catch (e) {
+      return throwError(e, 'Failed to fetch cryptocurrency historical prices');
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:api/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../repository/coin_repository.dart';
@@ -12,8 +13,8 @@ class CoinListBloc extends Bloc<CryptoEvent, CoinListState> {
     on<FetchCoinListWithMarket>((event, emit) async {
       page = 1; // reset page count for initial fetch
       try {
-        final data =
-            await cryptoRepository.fetchCoinsListWithMatket('<API-KEY>', page);
+        final List<CoinMarketMapDto> data =
+            await cryptoRepository.fetchCoinsListWithMatket(page);
         emit(CoinListWithMarketLoaded(
             cryptoData: data, hasReachedMax: data.isEmpty));
       } catch (e) {
@@ -24,7 +25,7 @@ class CoinListBloc extends Bloc<CryptoEvent, CoinListState> {
     on<FetchCoinList>((event, emit) async {
       emit(CoinListLoading());
       try {
-        var data = await cryptoRepository.fetchCoinList('<API-KEY>');
+        final List<CoinMapDto> data = await cryptoRepository.fetchCoinList();
         emit(CoinListLoaded(data));
       } catch (e) {
         emit(CoinListError(e.toString()));
@@ -35,9 +36,9 @@ class CoinListBloc extends Bloc<CryptoEvent, CoinListState> {
       if (state is CoinListWithMarketLoaded &&
           !(state as CoinListWithMarketLoaded).hasReachedMax) {
         try {
-          final nextPage = page + 1;
-          final newData = await cryptoRepository.fetchCoinsListWithMatket(
-              '<API-KEY>', nextPage);
+          final int nextPage = page + 1;
+          final List<CoinMarketMapDto> newData =
+              await cryptoRepository.fetchCoinsListWithMatket(nextPage);
           emit(CoinListWithMarketLoaded(
             cryptoData:
                 (state as CoinListWithMarketLoaded).cryptoData + newData,

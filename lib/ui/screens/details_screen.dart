@@ -8,14 +8,14 @@ import '../../repository/coin_repository.dart';
 import '../theme.dart';
 
 class DetailsScreen extends StatefulWidget {
-  final String title;
+  final String id;
 
-  const DetailsScreen({super.key, required this.title});
+  const DetailsScreen({super.key, required this.id});
 
-  static void push(BuildContext context, {required String title}) =>
+  static void push(BuildContext context, {required String id}) =>
       Navigator.of(context).push<void>(
         MaterialPageRoute(
-          builder: (context) => DetailsScreen(title: title),
+          builder: (context) => DetailsScreen(id: id),
         ),
       );
 
@@ -25,42 +25,50 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: CpTheme.of(context).backgroundColor,
-        title: Text(widget.title),
+        title: Text(widget.id),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            BlocProvider<CoinDataBloc>(
-              create: (_) {
-                var bloc = CoinDataBloc(context.read<CoinRepository>());
-                bloc.add(
-                  FetchCoinData(id: widget.title.toLowerCase()),
-                );
-                return bloc;
-              },
-              child: CoinDataWidget(),
-            ),
-            Container(
-              height: 200,
-              width: 200,
-              color: Colors.red,
-            ),
-            Column(
-              children: [
-                TextField(),
-                TextField(),
-              ],
-            ),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              BlocProvider<CoinDataBloc>(
+                create: (_) {
+                  var bloc = CoinDataBloc(context.read<CoinRepository>());
+                  bloc.add(
+                    FetchCoinData(id: widget.id.toLowerCase()),
+                  );
+                  return bloc;
+                },
+                child: CoinDataWidget(),
+              ),
+              BlocProvider<CoinDataBloc>(
+                create: (_) {
+                  var bloc = CoinDataBloc(context.read<CoinRepository>());
+                  bloc.add(
+                    FetchCoinHistoricalPrice(id: widget.id.toLowerCase()),
+                  );
+                  return bloc;
+                },
+                child: CoinChartWidget(),
+              ),
+              BlocProvider<CoinDataBloc>(
+                create: (_) {
+                  var bloc = CoinDataBloc(context.read<CoinRepository>());
+                  bloc.add(
+                    FetchCoinPrice(id: widget.id.toLowerCase()),
+                  );
+                  return bloc;
+                },
+                child: CoinPriceWidget(
+                  id: widget.id,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
