@@ -21,8 +21,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
+  bool _isSearching = false;
   List<CoinMapDto> _searchResults = [];
   StreamSubscription<CoinListState>? _cryptoSubscription;
 
@@ -42,6 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _cryptoSubscription?.cancel();
+    super.dispose();
+  }
+
   void _toggleSearch() {
     setState(() {
       _isSearching = !_isSearching;
@@ -54,34 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: CpTheme.of(context).backgroundColor,
-        title: _isSearching ? _buildSearchField() : Text(widget.title),
-        actions: _buildActions(),
-      ),
-      body: _isSearching && _searchResults.isNotEmpty
-          ? _buildSearchResults()
-          : CoinListWidget(),
-    );
-  }
-
-  Widget _buildSearchField() {
-    return TextField(
-      controller: _searchController,
-      autofocus: true,
-      decoration: InputDecoration(
-        hintText: 'Search...',
-        border: InputBorder.none,
-        hintStyle: TextStyle(color: Colors.white70),
-      ),
-      style: TextStyle(color: Colors.white, fontSize: 16.0),
-      onChanged: _performSearch,
-    );
-  }
-
   void _performSearch(String query) {
     if (query.isEmpty) {
       BlocProvider.of<CoinListBloc>(context, listen: false).add(
@@ -90,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _searchResults.clear();
       });
-      return;
     }
 
     final cryptoBloc = BlocProvider.of<CoinListBloc>(context, listen: false);
@@ -108,14 +86,53 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: CpTheme.of(context).backgroundColor,
+        title: _isSearching
+            ? _buildSearchField()
+            : Row(
+                children: [
+                  Text(
+                    widget.title,
+                  ),
+                ],
+              ),
+        actions: _buildActions(),
+      ),
+      body: _isSearching && _searchResults.isNotEmpty
+          ? _buildSearchResults()
+          : CoinListWidget(),
+    );
+  }
+
+  Widget _buildSearchField() {
+    return TextField(
+      controller: _searchController,
+      autofocus: true,
+      decoration: InputDecoration(
+        hintText: 'Search...',
+        border: InputBorder.none,
+      ),
+      style: TextStyle(fontSize: 16.0),
+      onChanged: _performSearch,
+    );
+  }
+
   Widget _buildSearchResults() {
     return ListView.builder(
       itemCount: _searchResults.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(_searchResults[index].name),
-          onTap: () =>
-              DetailsScreen.push(context, id: _searchResults[index].id),
+          onTap: () => DetailsScreen.push(
+            context,
+            id: _searchResults[index].id,
+            name: _searchResults[index].name,
+            symbol: _searchResults[index].symbol,
+          ),
         );
       },
     );
@@ -144,12 +161,5 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _toggleSearch,
             ),
           ];
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    _cryptoSubscription?.cancel();
-    super.dispose();
   }
 }

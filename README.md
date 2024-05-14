@@ -1,16 +1,53 @@
-# espresso_challange
+# Espresso Challenge
 
-A new Flutter project.
+## Description
+TODO
 
-## Getting Started
+### Features
+List the key features of the application using CoinGecko API:
 
-This project is a starting point for a Flutter application.
+- Real-time cryptocurrency price updates
+- Conversion between USD and other cryptocurrencies
+- Interactive and responsive charts displaying historical price data
+- Bloc for Business Logic
+- Dio for Network Request and Responses
 
-A few resources to get you started if this is your first Flutter project:
+### Installation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+# Clone the repository
+git clone https://github.com/Jaxiii/espresso-challenge.git
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To run the App
+
+```
+# Navigate to the project App directory
+cd espresso-challenge-app
+```
+
+```
+# Install dependencies
+flutter pub get
+```
+
+```
+# Run the application
+flutter run --dart-define=API_KEY="<API_KEY>"
+```
+
+### Usage
+
+### Line of Thought
+TODO
+
+Contact
+Bruno Sanguinetti R. de Barros – @_73v3n_ - brunosrb@protonmail.com
+
+GitHub: https://github.com/Jaxiii/
+
+Project Link: https://github.com/Jaxiii/espresso_challenge-app
+
+Project API Link: https://github.com/Jaxiii/espresso_challenge-api
+
+Project App Link: https://github.com/Jaxiii/espresso_challenge-app
