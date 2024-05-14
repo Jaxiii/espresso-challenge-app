@@ -21,8 +21,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
+  bool _isSearching = false;
   List<CoinMapDto> _searchResults = [];
   StreamSubscription<CoinListState>? _cryptoSubscription;
 
