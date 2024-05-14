@@ -110,6 +110,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "cross_file",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/cross_file-0.3.4+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "crypto",
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/crypto-3.0.3",
       "packageUri": "lib/",
@@ -422,6 +428,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mime",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/mime-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "nested",
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/nested-1.0.0",
       "packageUri": "lib/",
@@ -528,6 +540,60 @@
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/rxdart-0.27.7",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "share_plus",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/share_plus-9.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "share_plus_platform_interface",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/share_plus_platform_interface-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "shared_preferences",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/shared_preferences-2.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "shared_preferences_android",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/shared_preferences_android-2.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "shared_preferences_foundation",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "shared_preferences_linux",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/shared_preferences_linux-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "shared_preferences_platform_interface",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/shared_preferences_platform_interface-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "shared_preferences_web",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/shared_preferences_web-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "shared_preferences_windows",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/shared_preferences_windows-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "sky_engine",
@@ -806,7 +872,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-14T08:51:38.184730Z",
+  "generated": "2024-05-14T10:34:06.386751Z",
   "generator": "pub",
   "generatorVersion": "3.3.4"
 }

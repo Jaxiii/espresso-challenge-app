@@ -42,6 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _cryptoSubscription?.cancel();
+    super.dispose();
+  }
+
   void _toggleSearch() {
     setState(() {
       _isSearching = !_isSearching;
@@ -52,6 +59,31 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       _performSearch(_searchController.text.trim());
     }
+  }
+
+  void _performSearch(String query) {
+    if (query.isEmpty) {
+      BlocProvider.of<CoinListBloc>(context, listen: false).add(
+        FetchCoinListWithMarket(),
+      );
+      setState(() {
+        _searchResults.clear();
+      });
+    }
+
+    final cryptoBloc = BlocProvider.of<CoinListBloc>(context, listen: false);
+    cryptoBloc.add(FetchCoinList());
+    _cryptoSubscription?.cancel();
+    _cryptoSubscription = cryptoBloc.stream.listen((state) {
+      if (state is CoinListLoaded) {
+        setState(() {
+          _searchResults = state.coinList
+              .where((coin) =>
+                  coin.name.toLowerCase().contains(query.toLowerCase()))
+              .toList();
+        });
+      }
+    });
   }
 
   @override
@@ -87,32 +119,6 @@ class _HomeScreenState extends State<HomeScreen> {
       style: TextStyle(fontSize: 16.0),
       onChanged: _performSearch,
     );
-  }
-
-  void _performSearch(String query) {
-    if (query.isEmpty) {
-      BlocProvider.of<CoinListBloc>(context, listen: false).add(
-        FetchCoinListWithMarket(),
-      );
-      setState(() {
-        _searchResults.clear();
-      });
-      return;
-    }
-
-    final cryptoBloc = BlocProvider.of<CoinListBloc>(context, listen: false);
-    cryptoBloc.add(FetchCoinList());
-    _cryptoSubscription?.cancel();
-    _cryptoSubscription = cryptoBloc.stream.listen((state) {
-      if (state is CoinListLoaded) {
-        setState(() {
-          _searchResults = state.coinList
-              .where((coin) =>
-                  coin.name.toLowerCase().contains(query.toLowerCase()))
-              .toList();
-        });
-      }
-    });
   }
 
   Widget _buildSearchResults() {
@@ -155,12 +161,5 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _toggleSearch,
             ),
           ];
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    _cryptoSubscription?.cancel();
-    super.dispose();
   }
 }
