@@ -75,9 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: InputDecoration(
         hintText: 'Search...',
         border: InputBorder.none,
-        hintStyle: TextStyle(color: Colors.white70),
       ),
-      style: TextStyle(color: Colors.white, fontSize: 16.0),
+      style: Theme.of(context).textTheme.labelLarge,
       onChanged: _performSearch,
     );
   }

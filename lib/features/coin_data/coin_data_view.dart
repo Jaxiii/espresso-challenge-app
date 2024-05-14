@@ -35,7 +35,7 @@ class _CoinDataWidgetState extends State<CoinDataWidget> {
         if (state is CoinDataLoaded) {
           return Text(
             state.coinData.description['en'],
-            style: TextStyle(fontSize: 20, color: Colors.black),
+            style: Theme.of(context).textTheme.bodyLarge,
           );
         }
         return NoDataText();
