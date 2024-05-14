@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,27 +16,35 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CpTheme(
-      theme: const CpThemeData.light(),
-      child: Builder(
-        builder: (context) => MultiProvider(
-          providers: [
-            Provider<APIWrapper>(
-              create: (_) => APIWrapper(CoinsClient(CoingeckoClient.init())),
-            ),
-            ProxyProvider<APIWrapper, CoinRepository>(
-              update: (_, apiWrapper, __) => CoinRepository(apiWrapper),
-            ),
-          ],
-          child: MaterialApp(
-            title: 'Espresso Cash - Code Challenge',
-            theme: context.watch<CpThemeData>().toMaterialTheme(),
-            home: BlocProvider<CoinListBloc>(
-              create: (context) => CoinListBloc(context.read<CoinRepository>()),
-              child: HomeScreen(title: 'Espresso Cash - Code Challenge'),
-            ),
-          ),
+    return MultiProvider(
+      providers: [
+        Provider<APIWrapper>(
+          create: (_) => APIWrapper(CoinsClient(CoingeckoClient.init())),
         ),
+        ProxyProvider<APIWrapper, CoinRepository>(
+          update: (_, apiWrapper, __) => CoinRepository(apiWrapper),
+        ),
+      ],
+      child: Builder(
+        builder: (context) {
+          final brightness = PlatformDispatcher.instance.platformBrightness;
+          final themeData = brightness == Brightness.dark
+              ? const CpThemeData.black()
+              : const CpThemeData.light();
+          return CpTheme(
+            theme: themeData,
+            child: MaterialApp(
+              theme: themeData.toMaterialTheme(),
+              darkTheme: themeData.toMaterialTheme(),
+              title: 'Espresso Cash - Code Challenge',
+              home: BlocProvider<CoinListBloc>(
+                create: (context) =>
+                    CoinListBloc(context.read<CoinRepository>()),
+                child: HomeScreen(title: 'Espresso Cash - Code Challenge'),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

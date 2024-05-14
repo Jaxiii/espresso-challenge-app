@@ -224,6 +224,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/intl-0.19.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/brunobarros/.pub-cache/hosted/pub.dev/js-0.7.1",
       "packageUri": "lib/",
@@ -422,7 +428,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-13T17:12:24.956218Z",
+  "generated": "2024-05-14T02:32:46.699310Z",
   "generator": "pub",
   "generatorVersion": "3.3.4"
 }

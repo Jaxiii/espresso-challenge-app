@@ -36,7 +36,6 @@ class _CoinChartState extends State<CoinChart> {
     TextStyle style = TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 12,
-      color: Colors.black,
       height: value == minY
           ? 0.1
           : value == maxY

@@ -59,7 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: CpTheme.of(context).backgroundColor,
-        title: _isSearching ? _buildSearchField() : Text(widget.title),
+        title: _isSearching
+            ? _buildSearchField()
+            : Row(
+                children: [
+                  Text(
+                    widget.title,
+                  ),
+                ],
+              ),
         actions: _buildActions(),
       ),
       body: _isSearching && _searchResults.isNotEmpty
@@ -75,9 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: InputDecoration(
         hintText: 'Search...',
         border: InputBorder.none,
-        hintStyle: TextStyle(color: Colors.white70),
       ),
-      style: TextStyle(color: Colors.white, fontSize: 16.0),
+      style: TextStyle(fontSize: 16.0),
       onChanged: _performSearch,
     );
   }
@@ -114,8 +121,11 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(_searchResults[index].name),
-          onTap: () =>
-              DetailsScreen.push(context, id: _searchResults[index].id),
+          onTap: () => DetailsScreen.push(
+            context,
+            id: _searchResults[index].id,
+            name: _searchResults[index].name,
+          ),
         );
       },
     );

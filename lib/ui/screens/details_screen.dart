@@ -9,13 +9,15 @@ import '../theme.dart';
 
 class DetailsScreen extends StatefulWidget {
   final String id;
+  final String name;
 
-  const DetailsScreen({super.key, required this.id});
+  const DetailsScreen({super.key, required this.id, required this.name});
 
-  static void push(BuildContext context, {required String id}) =>
+  static void push(BuildContext context,
+          {required String id, required String name}) =>
       Navigator.of(context).push<void>(
         MaterialPageRoute(
-          builder: (context) => DetailsScreen(id: id),
+          builder: (context) => DetailsScreen(id: id, name: name),
         ),
       );
 
@@ -29,7 +31,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: CpTheme.of(context).backgroundColor,
-        title: Text(widget.id),
+        title: Text(widget.name),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

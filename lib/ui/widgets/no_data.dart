@@ -9,7 +9,7 @@ class NoDataText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'No data available',
-      style: TextStyle(fontSize: 20, color: Colors.black),
+      style: TextStyle(fontSize: 20),
     );
   }
 }

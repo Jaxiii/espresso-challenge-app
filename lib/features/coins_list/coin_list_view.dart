@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../ui/screens/details_screen.dart';
 import 'coin_list_bloc.dart';
@@ -22,12 +23,41 @@ class _CoinListWidgetState extends State<CoinListWidget> {
     _scrollController.addListener(_scrollListener);
   }
 
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   void _scrollListener() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       BlocProvider.of<CoinListBloc>(context, listen: false)
           .add(LoadMoreCoins());
     }
+  }
+
+  String formatMarketCap(double value) {
+    if (value >= 1e12) {
+      return '\$ ${(value / 1e12).toStringAsFixed(1)}T';
+    } else if (value >= 1e9) {
+      return '\$ ${(value / 1e9).toStringAsFixed(1)}B';
+    } else if (value >= 1e6) {
+      return '\$ ${(value / 1e6).toStringAsFixed(1)}M';
+    } else if (value >= 1e3) {
+      return '\$ ${(value / 1e3).toStringAsFixed(1)}K';
+    } else {
+      return '\$ ${value.toString()}';
+    }
+  }
+
+  String formatCurrentPrice(double value, String locale) {
+    final NumberFormat numberFormat = NumberFormat.currency(
+      locale: locale,
+      symbol: '\$ ',
+      decimalDigits: 2,
+    );
+    return numberFormat.format(value);
   }
 
   @override
@@ -42,6 +72,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
         }
         if (state is CoinListWithMarketLoaded) {
           return ListView.builder(
+            padding: const EdgeInsets.all(8),
             controller: _scrollController,
             itemCount: state.hasReachedMax
                 ? state.cryptoData.length
@@ -54,8 +85,94 @@ class _CoinListWidgetState extends State<CoinListWidget> {
               }
               var coin = state.cryptoData[index];
               return ListTile(
-                title: Text(coin.name),
-                onTap: () => DetailsScreen.push(context, id: coin.id),
+                leading: Text(
+                  index.toString(),
+                  style: TextStyle(height: 0.9),
+                ),
+                minLeadingWidth: 20,
+                title: SizedBox(
+                  height: 60,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Image.network(
+                                coin.image,
+                                width: 32,
+                                height: 32,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 16.0,
+                          ),
+                          SizedBox(
+                            height: 60,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    coin.symbol.toUpperCase(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 2.0,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    coin.name,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white60,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 2.0,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                    formatMarketCap(coin.marketCap),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white60,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                trailing: Text(
+                  formatCurrentPrice(
+                    coin.currentPrice,
+                    Localizations.localeOf(context).toString(),
+                  ),
+                ),
+                onTap: () =>
+                    DetailsScreen.push(context, id: coin.id, name: coin.name),
               );
             },
           );
@@ -63,11 +180,5 @@ class _CoinListWidgetState extends State<CoinListWidget> {
         return SizedBox();
       },
     );
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 }
