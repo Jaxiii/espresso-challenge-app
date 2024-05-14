@@ -1,6 +1,7 @@
 import 'package:api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import '../../ui/widgets/chart.dart';
 import '../../ui/widgets/exchange_rates.dart';
@@ -16,6 +17,9 @@ class CoinDataWidget extends StatefulWidget {
 }
 
 class _CoinDataWidgetState extends State<CoinDataWidget> {
+  double _containerHeight = 100.0;
+  bool _expanded = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CoinDataBloc, CoinDataState>(
@@ -33,9 +37,72 @@ class _CoinDataWidgetState extends State<CoinDataWidget> {
           return SizedBox();
         }
         if (state is CoinDataLoaded) {
-          return Text(
-            state.coinData.description['en'],
-            style: TextStyle(fontSize: 20),
+          if (!_expanded) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              final TextSpan textSpan = TextSpan(
+                text: state.coinData.description['en'],
+                style: TextStyle(fontSize: 16),
+              );
+              final TextPainter textPainter = TextPainter(
+                text: textSpan,
+                maxLines: null,
+                textDirection: TextDirection.ltr,
+              );
+              textPainter.layout(maxWidth: MediaQuery.of(context).size.width);
+              setState(() {
+                _containerHeight = textPainter.size.height;
+              });
+            });
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'About ${state.coinData.name}',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              SizedBox(height: 18.0),
+              Stack(
+                children: [
+                  AnimatedContainer(
+                    height: _expanded ? _containerHeight : 100.0,
+                    duration: const Duration(milliseconds: 350),
+                    curve: Curves.easeInOut,
+                    child: HtmlWidget(
+                      state.coinData.description['en'],
+                      textStyle:
+                          TextStyle(fontSize: 16, overflow: TextOverflow.fade),
+                    ),
+                  ),
+                  if (!_expanded)
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 20.0,
+                      child: Container(
+                        height: 150,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black.withOpacity(0.25),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              TextButton(
+                onPressed: () => setState(() {
+                  _expanded = !_expanded;
+                }),
+                child: Text(_expanded ? 'Read less' : 'Read more'),
+              ),
+            ],
           );
         }
         return NoDataText();

@@ -125,6 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
             context,
             id: _searchResults[index].id,
             name: _searchResults[index].name,
+            symbol: _searchResults[index].symbol,
           ),
         );
       },

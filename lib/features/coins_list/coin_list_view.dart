@@ -1,4 +1,5 @@
 import 'package:api/api.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -121,7 +122,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
                       leading: Padding(
                         padding: const EdgeInsets.only(left: 4.0, top: 3.0),
                         child: Text(
-                          index.toString(),
+                          (index + 1).toString(),
                           style: TextStyle(height: 0.9),
                         ),
                       ),
@@ -140,8 +141,8 @@ class _CoinListWidgetState extends State<CoinListWidget> {
                                   padding: const EdgeInsets.only(top: 4.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(16.0),
-                                    child: Image.network(
-                                      coin.image,
+                                    child: CachedNetworkImage(
+                                      imageUrl: coin.image,
                                       width: 32,
                                       height: 32,
                                     ),
@@ -152,6 +153,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
                                 ),
                                 SizedBox(
                                   height: 60,
+                                  width: 140,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -203,7 +205,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
                         ),
                       ),
                       trailing: SizedBox(
-                        width: 120,
+                        width: 90,
                         height: 60,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -242,8 +244,17 @@ class _CoinListWidgetState extends State<CoinListWidget> {
                           ],
                         ),
                       ),
-                      onTap: () => DetailsScreen.push(context,
-                          id: coin.id, name: coin.name),
+                      onTap: () => DetailsScreen.push(
+                        context,
+                        id: coin.id,
+                        name: coin.name,
+                        symbol: coin.symbol,
+                        rank: index,
+                        price: coin.currentPrice,
+                        priceChange24h: coin.priceChangePercentage_24h,
+                        marketCap: coin.marketCap,
+                        imageUrl: coin.image,
+                      ),
                     );
                   },
                   childCount: state.hasReachedMax
