@@ -90,7 +90,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
                     style: TextStyle(fontSize: 12),
                   ),
                   trailing: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -119,7 +119,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
                     final CoinMarketMapDto coin = state.cryptoData[index];
                     return ListTile(
                       leading: Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
+                        padding: const EdgeInsets.only(left: 4.0, top: 3.0),
                         child: Text(
                           index.toString(),
                           style: TextStyle(height: 0.9),
