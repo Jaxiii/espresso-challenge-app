@@ -6,13 +6,13 @@ import 'coin_data_event.dart';
 import 'coin_data_state.dart';
 
 class CoinDataBloc extends Bloc<CryptoDataEvent, CoinDataState> {
-  final CoinRepository cryptoRepository;
+  final CoinRepository coinRepository;
 
-  CoinDataBloc(this.cryptoRepository) : super(CoinDataInitial()) {
+  CoinDataBloc(this.coinRepository) : super(CoinDataInitial()) {
     on<FetchCoinData>((event, emit) async {
       emit(CoinDataLoading());
       try {
-        CoinDataMapDto data = await cryptoRepository.fetchCryptoData(event.id);
+        CoinDataMapDto data = await coinRepository.fetchCoinData(event.id);
         emit(CoinDataLoaded(data));
       } catch (e) {
         if (e is EspressoCashException) {
@@ -27,7 +27,7 @@ class CoinDataBloc extends Bloc<CryptoDataEvent, CoinDataState> {
       emit(CoinDataLoading());
       try {
         HistoricalPricesMapDto data =
-            await cryptoRepository.fetchCoinHistoricalPrices(event.id);
+            await coinRepository.fetchCoinHistoricalPrices(event.id);
         emit(CoinChartLoaded(data));
       } catch (e) {
         if (e is EspressoCashException) {
@@ -42,7 +42,7 @@ class CoinDataBloc extends Bloc<CryptoDataEvent, CoinDataState> {
       emit(CoinDataLoading());
       try {
         Map<String, PriceMapDto> data =
-            await cryptoRepository.fetchCoinPrice(event.id);
+            await coinRepository.fetchCoinPrice(event.id);
         emit(CoinPriceLoaded(data));
       } catch (e) {
         if (e is EspressoCashException) {

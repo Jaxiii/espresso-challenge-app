@@ -1,6 +1,8 @@
 import 'package:api/api.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import '../../ui/widgets/chart.dart';
 import '../../ui/widgets/exchange_rates.dart';
@@ -8,14 +10,17 @@ import '../../ui/widgets/no_data.dart';
 import 'coin_data_bloc.dart';
 import 'coin_data_state.dart';
 
-class CoinDataWidget extends StatefulWidget {
-  CoinDataWidget({Key? key}) : super(key: key);
+class CoinDataBlocWidget extends StatefulWidget {
+  CoinDataBlocWidget({Key? key}) : super(key: key);
 
   @override
-  _CoinDataWidgetState createState() => _CoinDataWidgetState();
+  _CoinDataBlocWidgetState createState() => _CoinDataBlocWidgetState();
 }
 
-class _CoinDataWidgetState extends State<CoinDataWidget> {
+class _CoinDataBlocWidgetState extends State<CoinDataBlocWidget> {
+  double _containerHeight = 100.0;
+  bool _expanded = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CoinDataBloc, CoinDataState>(
@@ -33,9 +38,71 @@ class _CoinDataWidgetState extends State<CoinDataWidget> {
           return SizedBox();
         }
         if (state is CoinDataLoaded) {
-          return Text(
-            state.coinData.description['en'],
-            style: Theme.of(context).textTheme.bodyLarge,
+          if (!_expanded) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              final TextSpan textSpan = TextSpan(
+                text: state.coinData.description['en'],
+                style: TextStyle(fontSize: 16),
+              );
+              final TextPainter textPainter = TextPainter(
+                text: textSpan,
+                maxLines: null,
+                textDirection: TextDirection.ltr,
+              );
+              textPainter.layout(maxWidth: MediaQuery.of(context).size.width);
+              setState(() {
+                _containerHeight = textPainter.size.height;
+              });
+            });
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'About ${state.coinData.name}',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              SizedBox(height: 18.0),
+              Stack(
+                children: [
+                  AnimatedContainer(
+                    height: _expanded ? _containerHeight : 100.0,
+                    duration: const Duration(milliseconds: 350),
+                    curve: Curves.easeInOut,
+                    child: HtmlWidget(
+                      state.coinData.description['en'],
+                      textStyle: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                  if (!_expanded)
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 20.0,
+                      child: Container(
+                        height: 150,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black.withOpacity(0.25),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              TextButton(
+                onPressed: () => setState(() {
+                  _expanded = !_expanded;
+                }),
+                child: Text(_expanded ? 'Read less' : 'Read more'),
+              ),
+            ],
           );
         }
         return NoDataText();
@@ -44,14 +111,14 @@ class _CoinDataWidgetState extends State<CoinDataWidget> {
   }
 }
 
-class CoinChartWidget extends StatefulWidget {
-  CoinChartWidget({Key? key}) : super(key: key);
+class CoinChartBlocWidget extends StatefulWidget {
+  CoinChartBlocWidget({Key? key}) : super(key: key);
 
   @override
-  _CoinChartWidgetState createState() => _CoinChartWidgetState();
+  _CoinChartBlocWidgetState createState() => _CoinChartBlocWidgetState();
 }
 
-class _CoinChartWidgetState extends State<CoinChartWidget> {
+class _CoinChartBlocWidgetState extends State<CoinChartBlocWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CoinDataBloc, CoinDataState>(
@@ -77,19 +144,23 @@ class _CoinChartWidgetState extends State<CoinChartWidget> {
   }
 }
 
-class CoinPriceWidget extends StatefulWidget {
+class CoinPriceBlocWidget extends StatefulWidget {
   final String id;
-  CoinPriceWidget({Key? key, required this.id}) : super(key: key);
+  final String symbol;
+  CoinPriceBlocWidget({Key? key, required this.id, required this.symbol})
+      : super(key: key);
 
   @override
-  _CoinPriceWidgetState createState() => _CoinPriceWidgetState(id: id);
+  _CoinPriceBlocWidgetState createState() =>
+      _CoinPriceBlocWidgetState(id: id, symbol: symbol);
 }
 
-class _CoinPriceWidgetState extends State<CoinPriceWidget> {
+class _CoinPriceBlocWidgetState extends State<CoinPriceBlocWidget> {
   late TextEditingController usdController;
   late TextEditingController coinController;
   final String id;
-  _CoinPriceWidgetState({required this.id});
+  final String symbol;
+  _CoinPriceBlocWidgetState({required this.id, required this.symbol});
 
   @override
   void initState() {
@@ -173,7 +244,7 @@ class _CoinPriceWidgetState extends State<CoinPriceWidget> {
                   );
 
           return ExchangeRatesWidget(
-            id: id,
+            symbol: symbol,
             coinController: coinController,
             usdController: usdController,
             onChangedCoin: onChangedCoin,
@@ -181,6 +252,41 @@ class _CoinPriceWidgetState extends State<CoinPriceWidget> {
           );
         }
         return NoDataText();
+      },
+    );
+  }
+}
+
+class CoinImageBlocWidget extends StatelessWidget {
+  const CoinImageBlocWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CoinDataBloc, CoinDataState>(
+      builder: (context, state) {
+        if (state is CoinDataLoading && state.isInitialLoad) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state is CoinDataError) {
+          if (state.error == EspressoCashError.notFound) {
+            return const SizedBox();
+          }
+          debugPrint('${state.message}${state.error}');
+          return const SizedBox();
+        }
+        if (state is CoinDataLoaded) {
+          if (state.coinData.id.isEmpty) {
+            return const NoDataText();
+          }
+          return CachedNetworkImage(
+            imageUrl: state.coinData.image['thumb'],
+            width: 24,
+            height: 24,
+          );
+        }
+        return const SizedBox();
       },
     );
   }

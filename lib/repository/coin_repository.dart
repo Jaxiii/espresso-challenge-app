@@ -32,7 +32,7 @@ class CoinRepository {
     }
   }
 
-  Future<CoinDataMapDto> fetchCryptoData(String id) async {
+  Future<CoinDataMapDto> fetchCoinData(String id) async {
     try {
       return await apiWrapper.fetchCoinData(id);
     } catch (e) {
