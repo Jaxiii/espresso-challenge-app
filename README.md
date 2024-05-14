@@ -2,9 +2,10 @@
 
 ## Description
 The Espresso Challenge application is designed to provide a comprehensive view of cryptocurrency data using the CoinGecko API. It offers price updates, conversion rates, and charts for market trends.
-List            |  Info
-:-------------------------:|:-------------------------:
-![Demo](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb292ZGxjcHdtMDR1djVnYjc3em1idTJ3NDNjOGUxMnVqdWNqZjJoaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4y9ZXxJZv5RWhgVsMi/giphy.gif)  |  ![Demo](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXozYzN2bTB1bXNtejZpaWxibjVqZXlzY2kwNXNieTludzF4YXdwbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/orbDpbbD63pZv9vi4v/giphy.gif)
+
+List            |  Info |  Search
+:-------------------------:|:-------------------------:|:-------------------------:
+![Demo](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb292ZGxjcHdtMDR1djVnYjc3em1idTJ3NDNjOGUxMnVqdWNqZjJoaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4y9ZXxJZv5RWhgVsMi/giphy.gif)  |  ![Demo](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXozYzN2bTB1bXNtejZpaWxibjVqZXlzY2kwNXNieTludzF4YXdwbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/orbDpbbD63pZv9vi4v/giphy.gif) | ![Demo](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjN4ZmNweDRqbmJoMzFmYTN4emM1ZDY2Yzh0NmZ2a3p4NG55dTg2YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xFGlwDXm2vk1YmVI44/giphy.gif)
 
 ### Features
 List the key features of the application using CoinGecko API:
